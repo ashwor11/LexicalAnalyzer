@@ -1,4 +1,6 @@
-public class SingleCharToken extends Token{
+package Tokens;
+
+public class SingleCharToken extends Token {
     public enum SingleCharTokenTYPE{
         LEFTPAR,
         RIGHTPAR,
@@ -20,5 +22,9 @@ public class SingleCharToken extends Token{
     @Override
     public String toString() {
         return this.TokenType.toString() + " " + this.row +":" + this.column;
+    }
+    @Override
+    public Enum<?> getTokenType() {
+        return this.TokenType;
     }
 }

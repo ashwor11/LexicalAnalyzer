@@ -1,13 +1,17 @@
+import Exceptions.LexicalErrorException;
+import Helpers.LexicalHelper;
+import Tokens.Token;
+
 import java.util.ArrayList;
 
-public class Analyzer {
+public class LexicalAnalyzer {
     public static ArrayList<Token> Tokens = new ArrayList<Token>();
 
         public static void Analyse(String code){
 
             //initializing variables
-            int curColumn = 1;
-            int curRow = 1;
+            int curColumn = 0;
+            int curRow = 0;
             String token = "";
             boolean inString = false; //if its true the spaces in string does not seperate tokens
             boolean escape = false; // if its true following " does not break the string
@@ -36,7 +40,7 @@ public class Analyzer {
                         if (!token.isEmpty()) {                // if there is a token create the token(which means "token" variable is not empty)
                             int column = curColumn - token.length(); //to get the starting index of the token subtract its length from its last chars index
 
-                            Helper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens);
+                            LexicalHelper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens);
 
                         }
                         token = "";              //because of the fact that we come to the end of the line. reinitialize values
@@ -54,17 +58,17 @@ public class Analyzer {
                     } else if (escape) {    // if the previous char was a \
                         escape = false;
                     }
-                    if (Helper.IsSingleCharTokenValue(code.charAt(i)) && !inString )// if its one of the single char tokens values
+                    if (LexicalHelper.IsSingleCharTokenValue(code.charAt(i)) && !inString )// if its one of the single char tokens values
                     {
                         if (!token.isEmpty()) { // because of the fact a single token and multi token side by side if token is not empty we should create a new multi char token
                             int column = curColumn - token.length(); //get start index of token
 
-                            Helper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens); // create multichar token and add to list
+                            LexicalHelper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens); // create multichar token and add to list
 
                         }
 
                         char value = code.charAt(i);
-                        Helper.GenerateSinglecharTokenAndAddToList(curRow,curColumn,value,Tokens); //create singlechar token and add to list
+                        LexicalHelper.GenerateSinglecharTokenAndAddToList(curRow,curColumn,value,Tokens); //create singlechar token and add to list
                         token = "";
 
                     }//single char token end
@@ -76,7 +80,7 @@ public class Analyzer {
                         } else if (!inString && !token.isEmpty()) { // if its not in string and token is not empty which means there is a multi char before the space
                             int column = curColumn - token.length(); // get the multichar tokens start index
 
-                            Helper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens); //create multichar token and add to list
+                            LexicalHelper.GenerateMulticharTokenAndAddToList(curRow, column, token, Tokens); //create multichar token and add to list
 
                             token = ""; //reinitialize the token to empty
                         }
@@ -104,5 +108,9 @@ public class Analyzer {
                 output += token.toString() +"\n";
             }
             return output;
+        }
+
+        public ArrayList<Token> getTokens(){
+            return Tokens;
         }
 }
