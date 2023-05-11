@@ -1,8 +1,11 @@
 
 
+import Tokens.MultiCharToken;
+import Tokens.SingleCharToken;
+
 import java.util.ArrayList;
 
-public class  Helper {
+public class LexicalHelper {
 
     public static boolean IsString(String token){
 
@@ -249,16 +252,16 @@ public class  Helper {
     }
     public static void GenerateMulticharTokenAndAddToList(int row, int column, String token, ArrayList<Token> tokens) throws LexicalErrorException {
 
-        if (Helper.IsString(token))
+        if (LexicalHelper.IsString(token))
             tokens.add(new MultiCharToken(row, column, token, MultiCharToken.MultiCharTokenTYPE.STRING));
-        else if (Helper.IsNumber(token))
+        else if (LexicalHelper.IsNumber(token))
             tokens.add(new MultiCharToken(row, column, token, MultiCharToken.MultiCharTokenTYPE.NUMBER));
-        else if (Helper.IsIdentifier(token))
+        else if (LexicalHelper.IsIdentifier(token))
             tokens.add(new MultiCharToken(row, column, token, MultiCharToken.MultiCharTokenTYPE.IDENTIFIER));
-        else if (Helper.IsChar(token))
+        else if (LexicalHelper.IsChar(token))
             tokens.add(new MultiCharToken(row, column, token, MultiCharToken.MultiCharTokenTYPE.CHAR));
-        else if (Helper.IsKeyword(token)) tokens.add(GenerateKeywordToken(row, column, token));
-        else if (Helper.IsBool(token))
+        else if (LexicalHelper.IsKeyword(token)) tokens.add(GenerateKeywordToken(row, column, token));
+        else if (LexicalHelper.IsBool(token))
             tokens.add(new MultiCharToken(row, column, token, MultiCharToken.MultiCharTokenTYPE.BOOLEAN));
         else {
             throw new LexicalErrorException(row, column, token);
