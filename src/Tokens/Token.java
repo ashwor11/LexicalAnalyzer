@@ -1,4 +1,4 @@
-import com.sun.istack.internal.NotNull;
+package Tokens;
 
 public abstract class Token {
 
@@ -6,6 +6,7 @@ public abstract class Token {
     public int column;
 
     public String value;
+
 
     public Token(int row, int column){
         this.row = row;
@@ -16,6 +17,7 @@ public abstract class Token {
         this.column = column;
         this.value = value;
     }
+    public abstract Enum<?> getTokenType();
 
 
 }

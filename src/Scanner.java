@@ -1,10 +1,14 @@
 
 
+import Exceptions.LexicalErrorException;
+import Exceptions.ParserErrorException;
+import Tokens.SingleCharToken;
+
 import java.io.*;
 
 public class Scanner {
 
-    public static void main(String[] args) throws LexicalErrorException {
+    public static void main(String[] args)  {
 
         if(args.length != 2){
             System.out.println("Usage: NameOfTheProgram [fileName]");
@@ -14,10 +18,15 @@ public class Scanner {
 
         String code = getInput(fileName);
 
-        Analyzer analyzer = new Analyzer();
-        analyzer.Analyse(code);
-        String output = analyzer.TokensToString();
-        writeOutput(output);
+        LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
+        lexicalAnalyzer.Analyse(code);
+        String output = lexicalAnalyzer.TokensToString();
+
+        SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(lexicalAnalyzer.getTokens());
+        syntaxAnalyzer.AnalyzeSyntax();
+        writeOutput(syntaxAnalyzer.toString());
+
+
 
     }
 

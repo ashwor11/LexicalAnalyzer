@@ -1,13 +1,15 @@
-public class LexicalErrorException extends Exception{
+package Exceptions;
 
-    public int row;
-    public int column;
-    public String token;
+import Tokens.Token;
+
+public class LexicalErrorException extends TokenException{
 
     public LexicalErrorException(int row, int column, String token ){
-        this.row = row;
-        this.column = column;
-        this.token = token;
+        super(row,column,token);
+
+    }
+    public LexicalErrorException(Token token){
+        super(token);
     }
     @Override
     public String toString() {

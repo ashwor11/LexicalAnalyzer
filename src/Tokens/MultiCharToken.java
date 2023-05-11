@@ -1,4 +1,8 @@
-public class MultiCharToken extends Token{
+package Tokens;
+
+public class MultiCharToken extends Token {
+
+
     public enum MultiCharTokenTYPE{
         NUMBER,
         BOOLEAN,
@@ -27,5 +31,10 @@ public class MultiCharToken extends Token{
     @Override
     public String toString() {
         return this.TokenType.toString() + " " + this.row +":" + this.column;
+    }
+
+    @Override
+    public Enum<?> getTokenType() {
+        return this.TokenType;
     }
 }
